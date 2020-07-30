@@ -1,11 +1,11 @@
 $ORIGIN ${domain}.
 $TTL ${cache_ttl}
-@	3600 IN	SOA ${dns_server_name} ${email} (
+@	IN	SOA ${dns_server_name} ${email} (
 				${serial_number} ; serial
 				7200             ; refresh (2 hours), only affects secondary dns servers
 				3600             ; retry (1 hour), only affects secondary dns servers
 				604800           ; expire (1 week), only affects secondary dns servers
-				${cache_ttl}     ; minimum (1 hour)
+				${cache_ttl}     ;
 				)
 
 %{ for record in a_records ~}

@@ -1,11 +1,6 @@
 locals {
-  dns_server_name = lookup(
-    var.soa_record, 
-    "dns_server_name",
-    "ns.${var.domain}."
-  )
-  email = lookup(var.soa_record, "email", "no-op.${var.domain}.")
-  dns_server_ips = lookup(var.soa_record, "dns_server_ips", [])
+  dns_server_name = var.dns_server_name != "" ? var.dns_server_name : "ns.${var.domain}."
+  email = var.email != "" ? var.email : "no-op.${var.domain}."
 }
 
 locals {
@@ -19,7 +14,7 @@ locals {
           a_records = var.a_records
           dns_server_name = local.dns_server_name
           email = local.email
-          dns_server_ips = local.dns_server_ips
+          dns_server_ips = var.dns_server_ips
         }
       )
   )
@@ -42,10 +37,9 @@ resource "openstack_objectstorage_object_v1" "zonefile" {
       serial_number = time_static.zonefile_update.unix
       cache_ttl = var.cache_ttl
       a_records = var.a_records
-      soa_record = var.soa_record
       dns_server_name = local.dns_server_name
       email = local.email
-      dns_server_ips = local.dns_server_ips
+      dns_server_ips = var.dns_server_ips
     }
   )
 }

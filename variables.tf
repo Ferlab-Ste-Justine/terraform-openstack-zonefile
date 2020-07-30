@@ -25,8 +25,20 @@ variable cache_ttl {
   default = 5
 }
 
-variable soa_record {
-  description = "Information for the soa record. Should contain the following keys: email, dns_server_name, dns_server_ips"
-  type = map(any)
-  default = {}
+variable email {
+  description = "Contact email for the SOA record. Defaults to no-op.{domain}."
+  type = string
+  default = ""
+}
+
+variable dns_server_name {
+  description = "Fully defined domain name of the dns server(s) for the SOA record. Defaults to dns.{domain}."
+  type = string
+  default = ""
+}
+
+variable dns_server_ips {
+  description = "List of ips for the dns servers. If defined, a list of A records mapping the ips to the dns domain will be included in the zonefile."
+  type = list(string)
+  default = []
 }

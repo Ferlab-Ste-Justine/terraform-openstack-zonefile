@@ -15,10 +15,9 @@ The serial number is internally managed. It is generated from the epoch and is o
 - a_records: List of mappings, each having a **prefix** (subdomain) and **ip** key
 - container: Name of the container to create the object under
 - cache_ttl: How long (in seconds) should resolvers cache the values retrieved from the zonefile. Defaults to 5 seconds.
-- soa_record: Mapping that indicates what to put in the SOA record. For internal only standalone DNS servers, it can be ignored and left at default. Otherwise, it should contain the keys below:
-  - email: Email address to put in **SOA** record. This needs to be a fully qualified domain so the **@** should be replaced by a dot and a dot needs to be appeneded at the end. Defaults to **no-op.domain.** if undefined, where **domain** is the domain you passed as an argument.
-  - dns_server_name: Fully qualified domain name of the nameserver (with a dot at the end). Defaults to **ns.domain.** if not defined, where **domain** is the domain you passed as an argument.
-  - dns_server_ips: If defined, **A** records will be generated mapping the dns server name to those ips.
+- email: Email address to put in **SOA** record. This needs to be a fully qualified domain so the **@** should be replaced by a dot and a dot needs to be appeneded at the end. Defaults to **no-op.domain.** if undefined, where **domain** is the domain you passed as an argument.
+- dns_server_name: Fully qualified domain name of the nameserver (with a dot at the end). Defaults to **ns.domain.** if not defined, where **domain** is the domain you passed as an argument. This is used for the SOA record. For standalone internal DNS servers, it can be ignored and left at the default.
+- dns_server_ips: If defined, **A** records will be generated mapping the dns server name to those ips.
 
 ## Output
 
