@@ -9,7 +9,11 @@ $TTL ${cache_ttl}
 				)
 
 %{ for record in a_records ~}
+%{ if record.prefix != "" ~}
 ${record.prefix} IN A ${record.ip}
+%{ else ~}
+@ IN A ${record.ip}
+%{ endif ~}
 %{ endfor ~}
 
 %{ for ip in dns_server_ips ~}
