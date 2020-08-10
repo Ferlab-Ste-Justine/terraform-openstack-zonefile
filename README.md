@@ -2,9 +2,25 @@
 
 This Terraform module generates a zonefile from the input and stores it in Openstack's object store.
 
+The zonefile serial number is internally managed on detected file changes and strictly increasing. 
+
+# Limitations
+
+## DNS Servers Compatibility
+
+The generated zonefiles have so far been used with the **auto** plugin of **CoreDNS** and are thus validated for that technology.
+
+It should theoretically work with other kinds of dns servers, but it has not be empirically verified.
+
+## Supported Records
+
 At the current time, only **A** records are supported. More may be added later as the need arises.
 
-The serial number is internally managed. It is generated from the epoch and is only updated if a zonefile change is detected. Assuming your zonefile doesn't change several times per second, this should be good enough for your needs.
+## Supported Refresh Rates
+
+The epoch, in seconds, is used to update the value of the zonefile serial number.
+
+This will be good enough as long as your zonefile is not updated more than once per second. Should you need to update at a greater frequency than that, terraform provisioned dns zonefiles are probably not the right solution for your problem anyhow.
 
 # Usage
 
@@ -12,7 +28,7 @@ The serial number is internally managed. It is generated from the epoch and is o
 
 - namespace: String to prepend the object name with. Defaults to nothing.
 - domain: Domain that the zonefile is for. A dot at the end is not required.
-- a_records: List of mappings, each having a **prefix** (subdomain) and **ip** key
+- a_records: List of mappings, each having a **prefix** (subdomain) and **ip** key. If the **prefix** has the value of the empty string (**""**), the value of **@** is passed to the given record, which will resolve to the domain with no subdomain prefix.
 - container: Name of the container to create the object under
 - cache_ttl: How long (in seconds) should resolvers cache the values retrieved from the zonefile. Defaults to 5 seconds.
 - email: Email address to put in **SOA** record. This needs to be a fully qualified domain so the **@** should be replaced by a dot and a dot needs to be appeneded at the end. Defaults to **no-op.domain.** if undefined, where **domain** is the domain you passed as an argument.
