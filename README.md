@@ -26,7 +26,6 @@ This will be good enough as long as your zonefile is not updated more than once 
 
 ## Input
 
-- namespace: String to prepend the object name with. Defaults to nothing.
 - domain: Domain that the zonefile is for. A dot at the end is not required.
 - a_records: List of mappings, each having a **prefix** (subdomain) and **ip** key. If the **prefix** has the value of the empty string (**""**), the value of **@** is passed to the given record, which will resolve to the domain with no subdomain prefix.
 - container: Name of the container to create the object under

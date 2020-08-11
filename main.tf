@@ -28,7 +28,7 @@ resource "time_static" "zonefile_update" {
 
 resource "openstack_objectstorage_object_v1" "zonefile" {
   container_name = var.container
-  name           = var.namespace == "" ? var.domain : "${var.domain}-${var.namespace}"
+  name           = var.domain
   content_type   = "text/plain"
   content        = templatefile(
     "${path.module}/zonefile.tpl",

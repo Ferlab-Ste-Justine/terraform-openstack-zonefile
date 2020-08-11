@@ -1,9 +1,3 @@
-variable namespace {
-  description = "Namespace to prepend to resource names"
-  type = string
-  default = ""
-}
-
 variable domain {
   description = "Name of the domain for the zonefile"
   type = string
