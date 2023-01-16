@@ -21,6 +21,15 @@ variable mx_records {
   default = []
 }
 
+variable txt_records {
+  description = "List of txt records having the following keys: prefix, text"
+  type = list(object({
+    prefix   = string
+    text  = string
+  }))
+  default = []
+}
+
 variable container {
   description = "Name of the container that will container the zonefile object"
   type = string
