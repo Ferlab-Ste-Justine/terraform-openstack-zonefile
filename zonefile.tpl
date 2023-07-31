@@ -8,6 +8,14 @@ $TTL ${cache_ttl}
 				${cache_ttl}     ;
 				)
 
+%{ for record in ns_records ~}
+%{ if record.prefix != "" ~}
+${record.prefix} IN NS ${record.domain}
+%{ else ~}
+IN NS ${record.domain}
+%{ endif ~}
+%{ endfor ~}
+
 %{ for record in a_records ~}
 %{ if record.prefix != "" ~}
 ${record.prefix} IN A ${record.ip}
