@@ -9,11 +9,7 @@ $TTL ${cache_ttl}
 				)
 
 %{ for record in ns_records ~}
-%{ if record.prefix != "" ~}
-${record.prefix} IN NS ${record.domain}
-%{ else ~}
-IN NS ${record.domain}
-%{ endif ~}
+${record.prefix} IN NS ${record.nameserver}
 %{ endfor ~}
 
 %{ for record in a_records ~}
